@@ -1,0 +1,28 @@
+{
+	"items": [
+		{
+			"_id": "1",
+			"name": "USB",
+			"price": 14.99,
+			"stock": 10,
+			"description": "128GB USB 3.0",
+			"image": "https://icon-icons.com/downloadimage.php?id=111208&root=1678/PNG/512/&file=wondicon-ui-free-parcel_111208.png"
+		},
+		{
+			"_id": "2",
+			"name": "Nintendo Switch",
+			"price": 399.99,
+			"stock": 5,
+			"description": "Nintendo Switch (Black) 2.0 32GB",
+			"image": "https://icon-icons.com/downloadimage.php?id=111208&root=1678/PNG/512/&file=wondicon-ui-free-parcel_111208.png"
+		},
+		{
+			"_id": "3",
+			"name": "LG Smart TV 50\"",
+			"price": 499.99,
+			"stock": 2,
+			"description": "LG Smart TV LED 50 inches",
+			"image": "https://icon-icons.com/downloadimage.php?id=111208&root=1678/PNG/512/&file=wondicon-ui-free-parcel_111208.png"
+		}
+	]
+}
