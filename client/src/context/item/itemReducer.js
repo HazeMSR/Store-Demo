@@ -3,7 +3,8 @@ import {
 	GET_ITEM,
 	ADD_ITEM,
 	MODIFY_ITEM,
-	DELETE_ITEM
+	DELETE_ITEM,
+	ITEM_ERROR
 } from '../types';
 
 const itemReducer = (state, action) => {
@@ -12,6 +13,11 @@ const itemReducer = (state, action) => {
 			return {
 				...state,
 				items: action.payload
+			};
+		case ITEM_ERROR:
+			return {
+				...state,
+				error: action.payload
 			};
 		default:
 			return state;
