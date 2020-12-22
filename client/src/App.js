@@ -20,8 +20,6 @@ function App() {
             <Route exact path='/' component={Items} />
             <Route exact path='/add' component={AddItem} />
             <Route exact path='/find' component={FindItem} />
-            <Route exact path='/modify' component={Items} />
-            <Route exact path='/delete' component={Items} />
           </Switch>
         </div>
       </Router>

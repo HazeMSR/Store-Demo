@@ -11,8 +11,8 @@ const Item = ({ item }) => {
 	return (
 		<div class="card">
 		  	<div class="card-image">
-		    	<figure class="image is-4by3">
-		      		<img src={image} alt="Placeholder" />
+		    	<figure class="image">
+		      		<img src={image} alt="Placeholder" width="20em" height="20em"	/>
 		    	</figure>
 		  	</div>
 			<div class="card-content">
@@ -31,7 +31,11 @@ const Item = ({ item }) => {
 					<p class="subtitle">Stock: {stock}</p>
 					<p>{description}</p>
 				</div>
-			</div>	
+			</div>
+			<footer className="card-footer">
+    			<a href="#" className="card-footer-item is-primary">Edit</a>
+    			<a href="#" className="card-footer-item is-danger">Delete</a>
+  			</footer>
 		</div>
 	);
 };

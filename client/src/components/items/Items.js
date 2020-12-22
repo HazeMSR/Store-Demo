@@ -17,13 +17,16 @@ const Items = () => {
 
 
 	return (
-		<div class="tile is-ancestor">
-			{ items.map( item => ( 
-				<div class="tile is-4">
-					<Item key={"item"+item._id} item={item} />
-				</div>
-			) ) }
-		</div>
+		<Fragment>
+			<div className="tile is-ancestor">
+				{ items.map( item => ( 
+					<div className="tile is-4">
+						<Item key={"item"+item._id} item={item} />
+					</div>
+				) ) }
+			</div>
+		</Fragment>
+
 	)
 };
 export default Items;

@@ -12,15 +12,6 @@ const Navbar = () => {
 				<a className="navbar-item" href="/add">
         			Add item
       			</a>
-				<a className="navbar-item" href="/find">
-        			Find item
-      			</a>
-				<a className="navbar-item" href="/modify">
-        			Modify item
-      			</a>
-				<a className="navbar-item" href="/delete">
-        			Delete item
-      			</a>
 			</div>
 		</div>
 	</nav>
