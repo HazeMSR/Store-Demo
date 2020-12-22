@@ -1,5 +1,5 @@
 import React, { useEffect, Fragment, useContext } from 'react';
-import Itemi from './Itemi';
+import Item from './Item';
 import ItemContext, {Loquesea} from '../../context/item/itemContext';
 
 const Items = () => {
@@ -14,12 +14,16 @@ const Items = () => {
     if ( items == null || items.length === 0 ){
         return <h4>Please add a item</h4>;
 	}
+
+
 	return (
-		<div>
-			{ items.forEach( item => (
-                <Itemi key={"item"+item._id} itemi={item} />
+		<div class="tile is-ancestor">
+			{ items.map( item => ( 
+				<div class="tile is-4">
+					<Item key={"item"+item._id} item={item} />
+				</div>
 			) ) }
 		</div>
-	);
+	)
 };
 export default Items;

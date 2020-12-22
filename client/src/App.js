@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ItemState from './context/item/ItemState';
 
 import Items from './components/items/Items';
+import AddItem from './components/items/AddItem';
+import FindItem from './components/items/FindItem';
 
-import Home from './pages/Home';
 import Navbar from './components/layout/Navbar';
 
 function App() {
@@ -16,8 +17,11 @@ function App() {
         <Navbar />
         <div className="container">
           <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/find' component={Items} />
+            <Route exact path='/' component={Items} />
+            <Route exact path='/add' component={AddItem} />
+            <Route exact path='/find' component={FindItem} />
+            <Route exact path='/modify' component={Items} />
+            <Route exact path='/delete' component={Items} />
           </Switch>
         </div>
       </Router>

@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import ItemContext from '../../context/item/itemContext';
 
-const Itemi = ({ itemi }) => {
-	console.log("ITEM ",itemi);
+const Item = ({ item }) => {
+	console.log("ITEM ",item);
 	const itemContext = useContext(ItemContext);
     //const { deleteItem, setCurrent, clearCurrent } = itemContext;
-	const { name, price, stock, description, image } = itemi;
+	const { name, price, stock, description, image } = item;
 	
 	return (
 		<div class="card">
@@ -35,7 +35,7 @@ const Itemi = ({ itemi }) => {
 		</div>
 	);
 };
-Itemi.propTypes = {
-	itemi: PropTypes.object.isRequired
+Item.propTypes = {
+	item: PropTypes.object.isRequired
 };
-export default Itemi;
+export default Item;
