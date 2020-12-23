@@ -4,21 +4,28 @@ import ItemContext from './itemContext';
 import ItemReducer from './itemReducer';
 import {
 	GET_ITEMS,
-	GET_ITEM,
+	//GET_ITEM,
 	ADD_ITEM,
 	MODIFY_ITEM,
 	DELETE_ITEM,
-	ITEM_ERROR
+    ITEM_ERROR,
+    SET_CURRENT
 } from '../types';
 
 const ItemState = props => {
     const initialState = {
         items : null,
+        current: null,
         filtered: null,
         error: null
     };
     
     const [state, dispatch] = useReducer(ItemReducer, initialState);
+
+    // Set current item
+    const setCurrent = async item => {
+        dispatch({ type: SET_CURRENT, payload: item });
+    };
 
     // Get Items
     const getItems = async () => {
@@ -34,7 +41,57 @@ const ItemState = props => {
                 payload: err.response.msg
             });
         }
-	};
+    };
+    
+    // Add Item
+    const addItem = async item => {
+        const config = { headers: {'Content-Type': 'application/json'}};
+        try {
+            const res = await axios.post(`/items`, item, config);
+            dispatch({ 
+                type: ADD_ITEM, 
+                payload: res.data 
+            });
+        } catch (err) { 
+            dispatch({ 
+                type: ITEM_ERROR,
+                payload: err.response.msg
+            });
+        }
+    };
+
+    // Modify Item
+    const modifyItem = async item => {
+        const config = { headers: {'Content-Type': 'application/json'}};
+        try {
+            const res = await axios.put(`/items/${item.id}`, item, config);
+            dispatch({ 
+                type: MODIFY_ITEM, 
+                payload: res.data 
+            });
+        } catch (err) { 
+            dispatch({ 
+                type: ITEM_ERROR,
+                payload: err.response.msg
+            });
+        }
+    };
+
+    // Delete Item
+    const deleteItem = async id => {
+        try {
+			const res = await axios.get(`/items/${id}`);
+            dispatch({ 
+                type: DELETE_ITEM, 
+                payload: res.data 
+            });
+        } catch (err) { 
+            dispatch({ 
+                type: ITEM_ERROR,
+                payload: err.response.msg
+            });
+        }
+    };
 
     return (
         <ItemContext.Provider
@@ -42,7 +99,11 @@ const ItemState = props => {
             items: state.items,
             filtered: state.filtered,
             error: state.error,
-            getItems
+            getItems,
+            addItem,
+            modifyItem,
+            deleteItem,
+            setCurrent
         }}
         >
             { props.children }

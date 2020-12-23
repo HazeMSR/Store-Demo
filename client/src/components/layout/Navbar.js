@@ -10,6 +10,7 @@ const Navbar = () => {
 		  </div>
     		<div className="navbar-start">
 				<a className="navbar-item" href="/add">
+					<i className="fas fa-plus"/>
         			Add item
       			</a>
 			</div>
