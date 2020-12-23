@@ -8,14 +8,13 @@ const Modal = () => {
 	const itemContext = useContext(ItemContext);
 	const { isActive, closeModal } = modalContext;
 	
-	const [ activeState, setActive ] = useState('modal');
-
 	useEffect(() => {
 		if(!isActive) setActive('modal');
 		else setActive('modal is-active');
 		console.log('Entro useEffect modal');
 	}, [isActive]);
-	
+
+	const [ activeState, setActive ] = useState('modal');
 	const close = e => {
 		itemContext.setCurrent(null);
 		closeModal();

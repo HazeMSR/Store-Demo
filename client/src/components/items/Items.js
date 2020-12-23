@@ -1,15 +1,10 @@
 import React, { useEffect, Fragment, useContext } from 'react';
 import Item from './Item';
 import ItemContext from '../../context/item/itemContext';
-import ModalContext from '../../context/modal/modalContext';
-import Modal from '../layout/Modal';
 
 const Items = () => {
 	const itemContext = useContext(ItemContext);
 	const { items, getItems } = itemContext;
-
-	const modalContext = useContext(ModalContext);
-	const { isActive } = modalContext;
 
 	useEffect( () => {
 		getItems();
@@ -28,8 +23,6 @@ const Items = () => {
 					</div>
 				) ) }
 			</div>
-			{isActive && (<Modal />)}
-			
 		</Fragment>
 	);
 };

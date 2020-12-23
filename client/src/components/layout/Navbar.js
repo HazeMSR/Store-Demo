@@ -1,21 +1,32 @@
-import React from "react";
+import React, { Fragment, useState } from 'react';
+import AddItemModal from './AddItemModal';
 
 const Navbar = () => {
+	const [open, setOpen] = useState(false);
+
+	const onClick = e => {
+		setOpen(true);
+	};
+
 	return (
-	<nav className="navbar is-warning">
-  		<div id="navbarBasicExample" className="navbar-menu">
-		  <div className="navbar-brand">
-		  	<div className="navbar-item"><i className="fab fa-shopify" style={iconStyle}></i></div>
-			<a className="navbar-item" href="/" style={nameStyle}>Hazel's Store</a>
-		  </div>
-    		<div className="navbar-start">
-				<a className="navbar-item" href="/add">
-					<i className="fas fa-plus"/>
-        			Add item
-      			</a>
+	<Fragment>
+		<nav className="navbar is-warning">
+  			<div id="navbarBasicExample" className="navbar-menu">
+			  <div className="navbar-brand">
+			  	<div className="navbar-item"><i className="fab fa-shopify" style={iconStyle}></i></div>
+				<a className="navbar-item" href="/" style={nameStyle}>Hazel's Store</a>
+			  </div>
+    			<div className="navbar-start">
+					<a className="navbar-item" onClick={onClick}>
+						<i className="fas fa-plus"/>
+    	    			Add item
+    	  			</a>
+				</div>
 			</div>
-		</div>
-	</nav>
+		</nav>
+		{ open && (<AddItemModal isActive="modal is-active"/>)}
+	</Fragment>
+
 	);
 };
 const iconStyle = {
