@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import ModalContext from '../../context/modal/modalContext';
 
 const Navbar = () => {
+	const modalContext = useContext(ModalContext);
+	const open = e => {
+		modalContext.openModal();
+	};
+
 	return (
 	<nav className="navbar is-warning">
   		<div id="navbarBasicExample" className="navbar-menu">
@@ -9,7 +15,7 @@ const Navbar = () => {
 			<a className="navbar-item" href="/" style={nameStyle}>Hazel's Store</a>
 		  </div>
     		<div className="navbar-start">
-				<a className="navbar-item" href="/add">
+				<a className="navbar-item" onClick={open} href="#modal">
 					<i className="fas fa-plus"/>
         			Add item
       			</a>

@@ -12,23 +12,26 @@ const Items = () => {
 	const { isActive } = modalContext;
 
 	useEffect( () => {
+		console.log('Entro useEffect Items');
 		getItems();
 		// eslint-disable-next-line 
 	},[]);
 
-    if ( items == null || items.length === 0 ){
-        return <h4>Please add a item</h4>;
+	console.log('Entro Items');
+	
+	if ( items == null || items.length === 0 ){
+        return <h4>Please add an item</h4>;
 	}
 	return (
 		<Fragment>
 			<div className="tile is-ancestor">
 				{ items.map( item => ( 
-					<div className="tile is-4">
-						<Item key={"item"+item.id} item={item} />
+					<div className="tile is-3">
+						<Item key={item.id} item={item} />
 					</div>
 				) ) }
 			</div>
-			{isActive && (<Modal />)}
+			<Modal />
 			
 		</Fragment>
 	);

@@ -7,7 +7,7 @@ const FindItem = () => {
 		  	  	<input className="input" type="text" placeholder="Find a Item" />
 		  	</div>
 		  	<div className="control">
-		  	  	<button className="button is-info" data-target="#modal">
+		  	  	<button className="button is-info">
 			  	    Search
 		  	  	</button>
 		  	</div>

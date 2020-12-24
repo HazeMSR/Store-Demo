@@ -13,6 +13,7 @@ import {
 } from '../types';
 
 const ItemState = props => {
+    //const host = 'localhost:5000';
     const initialState = {
         items : null,
         current: null,
@@ -47,7 +48,9 @@ const ItemState = props => {
     const addItem = async item => {
         const config = { headers: {'Content-Type': 'application/json'}};
         try {
+            console.log('ADD ITEM: ',item);
             const res = await axios.post(`/items`, item, config);
+            console.log('RES: ',res);
             dispatch({ 
                 type: ADD_ITEM, 
                 payload: res.data 
@@ -64,7 +67,12 @@ const ItemState = props => {
     const modifyItem = async item => {
         const config = { headers: {'Content-Type': 'application/json'}};
         try {
-            const res = await axios.put(`/items/${item.id}`, item, config);
+            const link = `/items/${item.id}`;
+            const i = JSON.stringify(item);
+            console.log('LINK: '+ link +', ITEM: '+ i +', CONFIG: '+config);
+            
+            const res = await axios.put(link, i, config);
+            console.log('RES: ',res);
             dispatch({ 
                 type: MODIFY_ITEM, 
                 payload: res.data 
@@ -80,7 +88,8 @@ const ItemState = props => {
     // Delete Item
     const deleteItem = async id => {
         try {
-			const res = await axios.get(`/items/${id}`);
+            console.log('id: ',id);
+			const res = await axios.delete(`/items/${id}`);
             dispatch({ 
                 type: DELETE_ITEM, 
                 payload: res.data 
@@ -97,6 +106,7 @@ const ItemState = props => {
         <ItemContext.Provider
         value={{
             items: state.items,
+            current: state.current,
             filtered: state.filtered,
             error: state.error,
             getItems,

@@ -4,13 +4,14 @@ import ItemContext from '../../context/item/itemContext';
 const ModifyItem = props => {
 	
 	const itemContext = useContext(ItemContext);
-	const { current, addItem, modifyItem } = itemContext;
+	const { current, addItem, modifyItem, setCurrent } = itemContext;
 
-	useEffect( () => {
-		console.log('CURRENT', current);
+	useEffect( () => {		
         if(current !== null) {
+			console.log('IF');
             setItem(current);
         } else {
+			console.log('ELSE');
             setItem({
 				id: false,
 				name: '',
@@ -19,7 +20,8 @@ const ModifyItem = props => {
 				description: '',
 				image: ''
             });
-        }
+		}
+		console.log('CURRENT', item);
     }, [current]);
 
     const [item, setItem] = useState({
@@ -34,26 +36,33 @@ const ModifyItem = props => {
 
     const { id, name, price, stock, description, image } = item;
 
-    const onChange = e => 
-        setItem({ ...item, [e.target.name]: e.target.value });
+    const onChange = e => {
+		setItem({
+			...item,
+			[e.target.name]: e.target.value 
+		});
+		//console.log('onChange2: ' + e.target.name +' : '+ e.target.value);
+		//console.log('onchage3: ',item);
+	};
 
 	const onSubmit = e => {
 		let newItem = {
-			id: item._id.current,
-			name: item.name.current,
-			price: item.price.current,
-			stock: item.stock.current,
-			description: item.description.current,
-			image: item.image.current
+			id: item.id,
+			name: item.name,
+			price: item.price,
+			stock: item.stock,
+			description: item.description,
+			image: item.image
 		};
 		if ( current !== null ) modifyItem(newItem);
 		else {
+			console.log('ADD ITEM onSubmit');
 			delete newItem.id;
 			addItem(newItem);
 		}
 	};
 	return (
-		<div className="form"> {
+		<form className="form"> {
 			id && (
 				<div className="field is-horizontal">
 					<div className="field-label is-large">
@@ -61,8 +70,8 @@ const ModifyItem = props => {
 			 		</div>
 			 		<div className="field-body">
 					   	<div className="field">
-						   	<p class="control">
-          						<button class="button is-static">
+						   	<p className="control">
+          						<button className="button is-static">
 									{id}
           						</button>
         					</p>
@@ -72,7 +81,7 @@ const ModifyItem = props => {
 			)}
 			<div className="field is-horizontal">
 				<div className="field-label is-large">
-			   		<label className="label">Product</label>
+			   		<label className="label">Item:</label>
 			 	</div>
 			 	<div className="field-body">
 			   		<div className="field">
@@ -81,6 +90,7 @@ const ModifyItem = props => {
 								className="input is-large"
 								type="text"
 								placeholder="Name"
+								name="name"
 								value={name}
 								onChange={onChange}
 								required 
@@ -93,7 +103,7 @@ const ModifyItem = props => {
 				</div>
 			</div>
 			<div className="field is-horizontal is-large">
-				<div className="field-label is-large"><label className="label">Price</label></div>
+				<div className="field-label is-large"><label className="label">Price:</label></div>
 				<div className="field-body">
 				  <div className="field is-expanded">
 					<div className="field has-addons">
@@ -107,6 +117,7 @@ const ModifyItem = props => {
 								className="input is-large"
 								type="number"
 								placeholder="Price"
+								name="price"
 								value={price}
 								onChange={onChange}
 								required
@@ -119,7 +130,7 @@ const ModifyItem = props => {
 		  	</div>
 			<div className="field is-horizontal">
 				<div className="field-label is-large">
-			   		<label className="label">Stock</label>
+			   		<label className="label">Stock:</label>
 			 	</div>
 			 	<div className="field-body">
 			   		<div className="field">
@@ -128,6 +139,7 @@ const ModifyItem = props => {
 								className="input is-large"
 								type="number"
 								placeholder="Stock"
+								name="stock"
 								value={stock}
 								onChange={onChange}
 								required
@@ -142,20 +154,21 @@ const ModifyItem = props => {
 			</div>
 			<div className="field is-horizontal">
 				<div className="field-label is-large">
-			   		<label className="label">Description</label>
+			   		<label className="label">Description:</label>
 			 	</div>
 			 	<div className="field-body">
 			   		<div className="field">
-			     		<p className="control has-icons-left">
-			       			<input
-								className="input is-large"
+			     		<p className="control has-icons-right">
+			       			<textarea
+								className="textarea is-small"
 								type="text"
 								placeholder="Description"
+								name="description"
 								value={description}
 								onChange={onChange}
 							/>
-			       			<span className="icon is-small is-left">
-			         			<i className="fas fa-align-left" />
+			       			<span className="icon is-small is-right">
+			         			<i className="fas fa-align-right" />
 			       			</span>
 			     		</p>
 			   		</div>
@@ -163,7 +176,7 @@ const ModifyItem = props => {
 			</div>
 			<div className="field is-horizontal">
 				<div className="field-label is-large">
-			   		<label className="label">Image</label>
+			   		<label className="label">Image:</label>
 			 	</div>
 			 	<div className="field-body">
 			   		<div className="field">
@@ -172,6 +185,7 @@ const ModifyItem = props => {
 								className="input is-large"
 								type="text"
 								placeholder="URL"
+								name="image"
 								value={image}
 								onChange={onChange}
 							/>
@@ -188,7 +202,7 @@ const ModifyItem = props => {
     				<button className="button is-warning" onClick={onSubmit}>Submit</button>
   				</div>
 			</div>
-		</div>
+		</form>
 	);
 };
 export default ModifyItem;
