@@ -4,7 +4,7 @@ import ItemContext from '../../context/item/itemContext';
 const ModifyItem = props => {
 	
 	const itemContext = useContext(ItemContext);
-	const { current, addItem, modifyItem, setCurrent } = itemContext;
+	const { current, addItem, modifyItem } = itemContext;
 
 	useEffect( () => {		
         if(current !== null) {
@@ -41,8 +41,6 @@ const ModifyItem = props => {
 			...item,
 			[e.target.name]: e.target.value 
 		});
-		//console.log('onChange2: ' + e.target.name +' : '+ e.target.value);
-		//console.log('onchage3: ',item);
 	};
 
 	const onSubmit = e => {

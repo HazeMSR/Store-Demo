@@ -4,25 +4,19 @@ import PropTypes from 'prop-types';
 import ItemContext from '../../context/item/itemContext';
 import ModalContext from '../../context/modal/modalContext';
 
-import DeleteItem from '../items/DeleteItem';
-
 const Item = ({ item }) => {
 	const { name, price, stock, description, image } = item;
 
 	const itemContext = useContext(ItemContext);
 	const modalContext = useContext(ModalContext);
-	const { openModal } = modalContext;
+	const { openModal, setType } = modalContext;
 
-	const [ active, setActive ] = useState(false);
-
-	const onEdit = e => {
+	const openM = type => {
 		itemContext.setCurrent(item);
+		setType(type);
 		openModal();
 	};
-	const onDelete = e => {
-		itemContext.setCurrent(item);
-		setActive('card');
-	};
+
 	return (
 		<div className="card">
 		  	<div className="card-image">
@@ -51,10 +45,12 @@ const Item = ({ item }) => {
 				<a 
 					href="#modal" 
 					className="card-footer-item is-primary" 
-					onClick={onEdit}>Edit</a>
-				<a className="card-footer-item is-danger" onClick={onDelete}>Delete</a>
+					onClick={openM(0)}>Edit</a>
+				<a 
+					href="#modal"
+					className="card-footer-item is-danger" 
+					onClick={openM(1)}>Delete</a>
   			</footer>
-			{active && (<DeleteItem active={active}/>)}
 		</div>
 	);
 };
