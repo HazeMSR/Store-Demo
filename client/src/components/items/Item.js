@@ -1,27 +1,25 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import ItemContext from '../../context/item/itemContext';
 import ModalContext from '../../context/modal/modalContext';
-
-import DeleteItem from '../items/DeleteItem';
 
 const Item = ({ item }) => {
 	const { name, price, stock, description, image } = item;
 
 	const itemContext = useContext(ItemContext);
 	const modalContext = useContext(ModalContext);
-	const { openModal } = modalContext;
-
-	const [ active, setActive ] = useState(false);
+	const { openModal, setType } = modalContext;
 
 	const onEdit = e => {
 		itemContext.setCurrent(item);
+		setType(1);
 		openModal();
 	};
 	const onDelete = e => {
 		itemContext.setCurrent(item);
-		setActive('card');
+		setType(2);
+		openModal();
 	};
 	return (
 		<div className="card">
@@ -52,9 +50,11 @@ const Item = ({ item }) => {
 					href="#modal" 
 					className="card-footer-item is-primary" 
 					onClick={onEdit}>Edit</a>
-				<a className="card-footer-item is-danger" onClick={onDelete}>Delete</a>
+				<a 
+					href="#modal"
+					className="card-footer-item is-danger"
+					onClick={onDelete}>Delete</a>
   			</footer>
-			{active && (<DeleteItem active={active}/>)}
 		</div>
 	);
 };

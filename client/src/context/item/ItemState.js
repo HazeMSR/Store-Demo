@@ -9,16 +9,24 @@ import {
 	MODIFY_ITEM,
 	DELETE_ITEM,
     ITEM_ERROR,
-    SET_CURRENT
+    SET_CURRENT,
+    CLEAR_CURRENT
 } from '../types';
 
 const ItemState = props => {
     //const host = 'localhost:5000';
     const initialState = {
         items : null,
-        current: null,
         filtered: null,
-        error: null
+        error: null,
+        current: {
+            id: false,
+            name: '',
+            price: 0.0,
+            stock: 0,
+            description: '',
+            image: ''
+        }
     };
     
     const [state, dispatch] = useReducer(ItemReducer, initialState);
@@ -27,6 +35,9 @@ const ItemState = props => {
     const setCurrent = async item => {
         dispatch({ type: SET_CURRENT, payload: item });
     };
+
+    // Clear current item
+    const clearCurrent = async () => { dispatch({ type: CLEAR_CURRENT }); };
 
     // Get Items
     const getItems = async () => {
@@ -102,6 +113,7 @@ const ItemState = props => {
         }
     };
 
+
     return (
         <ItemContext.Provider
         value={{
@@ -113,7 +125,8 @@ const ItemState = props => {
             addItem,
             modifyItem,
             deleteItem,
-            setCurrent
+            setCurrent,
+            clearCurrent
         }}
         >
             { props.children }

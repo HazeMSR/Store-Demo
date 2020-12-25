@@ -1,66 +1,27 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import ItemContext from '../../context/item/itemContext';
 
-const ModifyItem = props => {
+const ModifyItem = () => {
 	
 	const itemContext = useContext(ItemContext);
-	const { current, addItem, modifyItem, setCurrent } = itemContext;
+	const { current, setCurrent } = itemContext;
 
 	useEffect( () => {		
-        if(current !== null) {
-			console.log('IF');
-            setItem(current);
-        } else {
-			console.log('ELSE');
-            setItem({
-				id: false,
-				name: '',
-				price: 0.0,
-				stock: 0,
-				description: '',
-				image: ''
-            });
-		}
-		console.log('CURRENT', item);
-    }, [current]);
-
-    const [item, setItem] = useState({
-		id: false,
-		name: '',
-		price: 0.0,
-		stock: 0,
-		description: '',
-		image: ''
-	});
-	console.log('ITEMmmmm',item);
-
-    const { id, name, price, stock, description, image } = item;
+		console.log('CURRENT');
+    }, []);
+	
+    const { id, name, price, stock, description, image } = current;
 
     const onChange = e => {
-		setItem({
-			...item,
+		setCurrent({
+			...current,
 			[e.target.name]: e.target.value 
 		});
 		//console.log('onChange2: ' + e.target.name +' : '+ e.target.value);
 		//console.log('onchage3: ',item);
 	};
 
-	const onSubmit = e => {
-		let newItem = {
-			id: item.id,
-			name: item.name,
-			price: item.price,
-			stock: item.stock,
-			description: item.description,
-			image: item.image
-		};
-		if ( current !== null ) modifyItem(newItem);
-		else {
-			console.log('ADD ITEM onSubmit');
-			delete newItem.id;
-			addItem(newItem);
-		}
-	};
+
 	return (
 		<form className="form"> {
 			id && (
@@ -108,7 +69,7 @@ const ModifyItem = props => {
 				  <div className="field is-expanded">
 					<div className="field has-addons">
 					  <p className="control">
-						<a className="button is-large is-static">
+						<a href="#modal" className="button is-large is-static">
 							<i className="fas fa-dollar-sign" />
 						</a>
 					  </p>
@@ -180,16 +141,16 @@ const ModifyItem = props => {
 			 	</div>
 			 	<div className="field-body">
 			   		<div className="field">
-			     		<p className="control has-icons-left">
-			       			<input
-								className="input is-large"
+			     		<p className="control has-icons-right">
+						 	<textarea
+								className="textarea is-small"
 								type="text"
 								placeholder="URL"
 								name="image"
 								value={image}
 								onChange={onChange}
 							/>
-			       			<span className="icon is-small is-left">
+			       			<span className="icon is-small is-right">
 			         			<i className="fas fa-image" />
 			       			</span>
 			     		</p>
@@ -197,11 +158,7 @@ const ModifyItem = props => {
 			   		</div>
 				</div>
 			</div>
-			<div className="field is-grouped is-grouped-centered">
-				<div className="control">
-    				<button className="button is-warning" onClick={onSubmit}>Submit</button>
-  				</div>
-			</div>
+
 		</form>
 	);
 };

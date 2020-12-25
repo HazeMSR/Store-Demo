@@ -1,10 +1,16 @@
 import React, { useContext } from "react";
 import ModalContext from '../../context/modal/modalContext';
+import ItemContext from '../../context/item/itemContext';
 
 const Navbar = () => {
 	const modalContext = useContext(ModalContext);
+	const itemContext = useContext(ItemContext);
+	const { setType, openModal } = modalContext;
+	
 	const open = e => {
-		modalContext.openModal();
+		itemContext.clearCurrent();
+		setType(0);
+		openModal();
 	};
 
 	return (

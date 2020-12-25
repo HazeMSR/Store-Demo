@@ -4,12 +4,14 @@ import ModalReducer from './modalReducer';
 
 import {
 	OPEN_MODAL,
-	CLOSE_MODAL
+	CLOSE_MODAL,
+	SET_TYPE
 } from '../types';
 
 const ModalState = props => {
     const initialState = {
-		isActive: false
+		isActive: false,
+		type: 0
 	};
 	const [state, dispatch] = useReducer(ModalReducer, initialState);
 	
@@ -20,13 +22,22 @@ const ModalState = props => {
 	const closeModal = async () => {
 		dispatch({ type: CLOSE_MODAL });
 	};
-		
+	
+	const setType = async type => {
+		dispatch({ 
+			type: SET_TYPE,
+			payload: type
+		});
+	};
+
 	return (
         <ModalContext.Provider
         value={{
 			isActive: state.isActive,
+			type: state.type,
 			openModal,
-			closeModal
+			closeModal,
+			setType
         }}
         >
             { props.children }

@@ -1,15 +1,11 @@
 import React, { useEffect, Fragment, useContext } from 'react';
 import Item from './Item';
-import ItemContext from '../../context/item/itemContext';
-import ModalContext from '../../context/modal/modalContext';
 import Modal from '../layout/Modal';
+import ItemContext from '../../context/item/itemContext';
 
 const Items = () => {
 	const itemContext = useContext(ItemContext);
 	const { items, getItems } = itemContext;
-
-	const modalContext = useContext(ModalContext);
-	const { isActive } = modalContext;
 
 	useEffect( () => {
 		console.log('Entro useEffect Items');

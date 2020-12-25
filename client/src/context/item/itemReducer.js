@@ -5,7 +5,8 @@ import {
 	MODIFY_ITEM,
 	DELETE_ITEM,
 	ITEM_ERROR,
-	SET_CURRENT
+	SET_CURRENT,
+	CLEAR_CURRENT
 } from '../types';
 
 const itemReducer = (state, action) => {
@@ -47,6 +48,18 @@ const itemReducer = (state, action) => {
 			return {
 				...state,
 				current: action.payload
+			};
+		case CLEAR_CURRENT:
+			return {
+				...state,
+				current: {
+					id: false,
+					name: '',
+					price: 0.0,
+					stock: 0,
+					description: '',
+					image: ''
+				}
 			}
 		default:
 			return state;
