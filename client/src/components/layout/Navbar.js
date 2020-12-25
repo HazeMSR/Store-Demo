@@ -17,7 +17,7 @@ const Navbar = () => {
     		<div className="navbar-start">
 				<a className="navbar-item" onClick={open} href="#modal">
 					<i className="fas fa-plus"/>
-        			{' '}Add item
+        			Add item
       			</a>
 			</div>
 		</div>

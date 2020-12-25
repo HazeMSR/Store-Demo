@@ -1,7 +1,6 @@
 import {
 	OPEN_MODAL,
-	CLOSE_MODAL,
-	SET_TYPE
+	CLOSE_MODAL
 } from '../types';
 
 const modalReducer = (state, action) => {
@@ -15,11 +14,6 @@ const modalReducer = (state, action) => {
 			return {
 				...state,
 				isActive: false
-			};
-		case SET_TYPE:
-			return {
-				...state,
-				contentType: action.payload
 			};
 		default:
 			return state;
