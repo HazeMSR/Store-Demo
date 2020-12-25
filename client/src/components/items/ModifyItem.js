@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import ItemContext from '../../context/item/itemContext';
 
-const ModifyItem = props => {
+const ModifyItem = () => {
 	
 	const itemContext = useContext(ItemContext);
 	const { current, addItem, modifyItem } = itemContext;

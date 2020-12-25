@@ -31,12 +31,14 @@ const ItemState = props => {
     // Get Items
     const getItems = async () => {
         try {
-			const res = await axios.get('/items');
+            const res = await axios.get('/items');
+            console.log('RES: ',res);
             dispatch({ 
                 type: GET_ITEMS, 
                 payload: res.data 
             });
         } catch (err) { 
+            console.warn('REACT ERROR: ',err);
             dispatch({ 
                 type: ITEM_ERROR,
                 payload: err.response.msg
