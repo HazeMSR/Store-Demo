@@ -130,6 +130,7 @@ const update = ( item, keys = ['id'] ) => {
 };
 
 const eliminate = ( key, conditions = null ) => {
+	console.log('KEY: ',key);
 	deleteParams.Key = key;
 
 	if ( conditions !== null ) {

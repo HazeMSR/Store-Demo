@@ -34,8 +34,10 @@ const Modal = () => {
 				console.log('DEFAULT');
 				break;
 		}
+
 		getItems();
 		closeModal();
+		window.location.reload(); 
 	};
 
 	const onCancel = () => {

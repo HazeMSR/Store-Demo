@@ -78,7 +78,7 @@ const ItemState = props => {
     const modifyItem = async item => {
         const config = { headers: {'Content-Type': 'application/json'}};
         try {
-            const link = `/items/${item.id}`;
+            const link = `/items`;
             const i = JSON.stringify(item);
             console.log('LINK: '+ link +', ITEM: '+ i +', CONFIG: '+config);
             
