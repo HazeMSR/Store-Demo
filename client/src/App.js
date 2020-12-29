@@ -3,30 +3,33 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import ItemState from './context/item/ItemState';
 import ModalState from './context/modal/ModalState';
+import AuthState from './context/auth/AuthState';
 
 import Items from './components/items/Items';
-import ModifyItem from './components/items/ModifyItem';
-import FindItem from './components/items/FindItem';
 
 import Navbar from './components/layout/Navbar';
+import PrivateRoute from './components/routing/PrivateRoute';
+import Login from './components/layout/Login';
+
 
 function App() {
   
   return (
-    <ModalState>
-      <ItemState>
-        <Router>
-          <Navbar />
-          <div className="container">
-            <Switch>
-              <Route exact path='/' component={Items} />
-              <Route exact path='/add' component={ModifyItem} />
-              <Route exact path='/find' component={FindItem} />
-            </Switch>
-          </div>
-        </Router>
-      </ItemState>
-    </ModalState>
+    <AuthState>
+      <ModalState>
+        <ItemState>
+          <Router>
+            <Navbar />
+            <div className="container">
+              <Switch>
+                <PrivateRoute exact path='/' component={Items} />
+                <Route exact path='/login' component={Login} />
+              </Switch>
+            </div>
+          </Router>
+        </ItemState>
+      </ModalState>
+    </AuthState>
   );
 }
 
