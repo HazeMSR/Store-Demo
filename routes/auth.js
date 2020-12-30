@@ -13,7 +13,7 @@ const config = require('config');
 // @access  Private
 router.get('/', auth, async (req, res) => {
     try {
-
+        console.log('REQ: ',req.user);
 		let user = await find( { user: req.user }, 'Users');
         delete user.Item.password;
         res.json(user.Item);
@@ -43,15 +43,12 @@ router.post('/', [
             return res.status(400).send('Invalid Credentils');
         }
         const isMatch = await bcrypt.compare(password, db.Item.password);
-        console.log('isMatch: ',isMatch);
         if(!isMatch) {
             return res.status(400).send('Invalid Credentials');
         }
-
         jwt.sign({ user: db.Item.user }, config.get('jwtSecret'), {
             expiresIn: 360000
         }, (err, token) => {
-            console.log('TOKEN:',token)
             if(err){ console.error('AUTH ERROR: ', err);throwerr;}
             res.json({ token });
         } );

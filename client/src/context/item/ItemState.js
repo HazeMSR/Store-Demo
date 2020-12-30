@@ -42,7 +42,7 @@ const ItemState = props => {
     // Get Items
     const getItems = async () => {
         try {
-			const res = await axios.get('/items');
+			const res = await axios.get('/api/items');
             dispatch({ 
                 type: GET_ITEMS, 
                 payload: res.data 
@@ -59,9 +59,10 @@ const ItemState = props => {
     const addItem = async item => {
         const config = { headers: {'Content-Type': 'application/json'}};
         try {
-            console.log('ADD ITEM: ',item);
-            const res = await axios.post(`/items`, item, config);
+            //console.log('ADD ITEM: ',item);
+            const res = await axios.post(`/api/items`, item, config);
             console.log('RES: ',res);
+
             dispatch({ 
                 type: ADD_ITEM, 
                 payload: res.data 
@@ -78,12 +79,7 @@ const ItemState = props => {
     const modifyItem = async item => {
         const config = { headers: {'Content-Type': 'application/json'}};
         try {
-            const link = `/items`;
-            const i = JSON.stringify(item);
-            console.log('LINK: '+ link +', ITEM: '+ i +', CONFIG: '+config);
-            
-            const res = await axios.put(link, i, config);
-            console.log('RES: ',res);
+            const res = await axios.put('/api/items', item, config);
             dispatch({ 
                 type: MODIFY_ITEM, 
                 payload: res.data 
@@ -99,8 +95,7 @@ const ItemState = props => {
     // Delete Item
     const deleteItem = async id => {
         try {
-            console.log('id: ',id);
-			const res = await axios.delete(`/items/${id}`);
+			const res = await axios.delete(`/api/items/${id}`);
             dispatch({ 
                 type: DELETE_ITEM, 
                 payload: res.data 

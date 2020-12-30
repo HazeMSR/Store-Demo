@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
+const { v4: uuidv4 } = require('uuid');
 const { check, validationResult } = require('express-validator');
-const { upsert, get, eliminate } = require('../db/crudOperations');
+const { upsert, get, eliminate, find } = require('../db/crudOperations');
 
 // @route   GET api/items
 // @desc    Get all items
@@ -10,8 +11,10 @@ const { upsert, get, eliminate } = require('../db/crudOperations');
 router.get('/', auth, async (req, res) => {
 	try {
 		const db = await get();
-		//console.log('GET: ',db['Items']);
-		res.json( db['Items'] );
+		if(db.error) res.status(400).send('DB error');
+		else{
+			res.json( db['Items'] );
+		}
 	} catch (err) {
 		console.error(err);
 		res.status(500).send('Server error');
@@ -30,9 +33,8 @@ router.post('/', [
     ], async (req, res) =>{
         const errors = validationResult(req);
         if(!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).send('Name is required');
         }
-        
         doUpsert(req, res, 'insert');
 });
 
@@ -49,8 +51,10 @@ router.put('/', auth, async (req, res) =>{
 router.delete('/:id', auth, async (req, res) =>{
     try {
         const db = await eliminate({ id: req.params.id.toString() });
-        console.log('DELETE: ',db);
-        res.send('Contact removed' );
+		if (db.error) res.status(400).send('DB error');
+		else {
+			res.status(200).json({ id: req.params.id });
+		}
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
@@ -68,19 +72,11 @@ const doUpsert = async (req, res, type = 'update') => {
 		if (item['description'] === null || item['description'] === '')
 			item['description'] = 'Add an item description';
 
-        const db = await upsert(item);
-        console.log('UPSERT: ', db);
-
-        /*
-		db.on('success', dbRes2 => {
-			res.status(200).send('Item upserted!');
-		});
-
-		db.on('error', function(error, dbRes) {
-			console.log("DB Error: " + error + "\n Response: " + dbRes);
-			res.status(500).send('DB error');
-		});
-		*/  
+		const db = await upsert(item);
+		if (db.error) res.status(400).send('DB error');
+		else {
+			res.status(200).json(item);
+		}
 	} catch (err) {
 		console.error(err);
 		res.status(500).send('Server error');

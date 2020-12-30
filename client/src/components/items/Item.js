@@ -21,6 +21,7 @@ const Item = ({ item }) => {
 		setType(2);
 		openModal();
 	};
+	
 	return (
 		<div className="card">
 		  	<div className="card-image">

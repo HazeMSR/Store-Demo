@@ -26,7 +26,7 @@ const Navbar = () => {
     const authLinks = (
         <Fragment>
 			<div className="navbar-item">
-				<i className='fas fa-sign-out-alt' />
+				<i className='fas fa-user' />
 				{' '} Hello { user && user.user }
 			</div>
 			

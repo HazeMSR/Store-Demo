@@ -7,7 +7,7 @@ import ItemContext from '../../context/item/itemContext';
 const Modal = () => {
 	const modalContext = useContext(ModalContext);
 	const itemContext = useContext(ItemContext);
-	const { clearCurrent, current, deleteItem, modifyItem, addItem, getItems } = itemContext;
+	const { clearCurrent, current, deleteItem, modifyItem, addItem } = itemContext;
 	const { isActive, closeModal, type } = modalContext;
 	
 	const [ activeState, setActive ] = useState('modal');
@@ -15,7 +15,6 @@ const Modal = () => {
 	useEffect(() => {
 		if(!isActive) setActive('modal');
 		else setActive('modal is-active');
-		console.log('Entro useEffect modal ', isActive);
 	}, [isActive]);
 	
 	const onSubmit = () => {
@@ -28,23 +27,20 @@ const Modal = () => {
 				break;
 			case 2:
 				deleteItem(current.id);
-				clearCurrent();
 				break;
 			default:
 				console.log('DEFAULT');
 				break;
 		}
-
-		getItems();
-		closeModal();
-		window.location.reload(); 
+		//getItems();
+		onClose();
 	};
 
-	const onCancel = () => {
+	const onClose = () => {
 		closeModal();
 		clearCurrent();
 	};
-	console.log('type: '+ type +' Entro modal: ' + isActive + ', active state: '+ activeState);
+
 
 	return (
 		<div id="modal" className={activeState}>
@@ -52,7 +48,7 @@ const Modal = () => {
 			<div className="modal-card">
 			<header className="modal-card-head">
       			<p className="modal-card-title">Item</p>
-      			<button className="delete" aria-label="close" onClick={onCancel}></button>
+      			<button className="delete" aria-label="close" onClick={onClose}></button>
     		</header>
     		<section className="modal-card-body">
 				<div className="content is-active">
@@ -63,7 +59,7 @@ const Modal = () => {
 				<button className="button" onClick={onSubmit}>{
 					type < 2 ? (type < 1 ? 'Add Item' : 'Modify Item') : 'Delete Item'
 				}</button>
-      			<button className="button is-danger" onClick={onCancel}>Cancel</button>
+      			<button className="button is-danger" onClick={onClose}>Cancel</button>
     		</footer>
 			</div>
   		</div>

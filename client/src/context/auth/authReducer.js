@@ -27,7 +27,6 @@ const authReducer = (state, action) => {
         case AUTH_ERROR:
         case LOGIN_FAIL:
         case LOGOUT:
-            console.log('ENTRO');
             localStorage.removeItem('token');
             return {
                 ...state,

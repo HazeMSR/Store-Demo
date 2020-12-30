@@ -17,6 +17,7 @@ const itemReducer = (state, action) => {
 				items: action.payload
 			};
 		case ADD_ITEM:
+			console.log('PAYLOAD: ',action.payload);
 			return {
 				...state,
 				items: [ action.payload,
@@ -36,7 +37,7 @@ const itemReducer = (state, action) => {
 			return {
 				...state,
 				items: state.items.filter( 
-                    item => item.id !== action.payload
+                    item => item.id !== action.payload.id
                 )
 			};
 		case ITEM_ERROR:

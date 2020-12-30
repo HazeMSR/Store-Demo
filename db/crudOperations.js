@@ -1,7 +1,8 @@
 var db = require('./dynamodb');
 
 let createParams = {
-	Item: {}
+	Item: {},
+	ReturnValues: "ALL_OLD"
 };
 
 let updateParams = {
@@ -52,11 +53,10 @@ const upsert = async (item, tablename = 'Items') => {
 	return db.put(createParams, (err, data) => {
 		if (err) {
 			console.error("Unable to create the item. Error JSON:", JSON.stringify(err, null, 2));
-			return err;
+			return {error: err};
 		}
 		else {
-			console.log("Create Item succeeded.");
-			return data;
+			return createParams.Item;
 		}
 	}).promise();
 };
@@ -91,10 +91,9 @@ const get = async ( tablename = 'Items', cols = null, filter = null ) => {
 	return db.scan(getParams, (err, data) => {
 		if (err) {
 			console.error("Unable to get the items. Error JSON:", JSON.stringify(err, null, 2));
-			return err;
+			return {error: err};
 		}
 		else {
-			console.log("Get Items succeeded.");
 			return data;
 		}
 	}).promise();
@@ -124,10 +123,10 @@ const update = async ( item, tablename = 'Items', keys = ['id']) => {
 	return db.update(updateParams, (err, data) => {
 		if (err) {
 			console.error("Unable to update the item. Error JSON:", JSON.stringify(err, null, 2));
-			return err;
+			return {error: err};
 		}
 		else {
-			console.log("Update Item succeeded.", data);
+			//console.log("Update Item succeeded.", data);
 			return data;
 		}
 	}).promise();
@@ -153,10 +152,10 @@ const eliminate = async ( key, tablename = 'Items', conditions = null ) => {
 	return db.delete(deleteParams, (err, data) => {
 		if (err) {
 			console.error("Unable to delete the item. Error JSON:", JSON.stringify(err, null, 2));
-			return err;
+			return {error: err};
 		}
 		else {
-			console.log("Delete Item succeeded.");
+			//console.log("Delete Item succeeded.");
 			return data;
 		}
 	}).promise();
@@ -169,10 +168,10 @@ const find = async (keys, tablename = 'Items') => {
 	return db.get(findParams, (err, data) => {
 		if (err) {
 			console.error("Unable to find the item. Error JSON:", JSON.stringify(err, null, 2));
-			return err;
+			return {error: err};
 		}
 		else {
-			console.log("Find Item succeeded.", data);
+			//console.log("Find Item succeeded.");
 			return data;
 		}
 	}).promise();

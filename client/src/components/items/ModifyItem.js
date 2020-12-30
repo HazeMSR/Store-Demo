@@ -1,15 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import ItemContext from '../../context/item/itemContext';
 
 const ModifyItem = () => {
 	
 	const itemContext = useContext(ItemContext);
-	const { current, setCurrent } = itemContext;
-
-	useEffect( () => {		
-		console.log('CURRENT');
-    }, []);
-	
+	const { current, setCurrent } = itemContext;	
     const { id, name, price, stock, description, image } = current;
 
     const onChange = e => {
@@ -17,10 +12,7 @@ const ModifyItem = () => {
 			...current,
 			[e.target.name]: e.target.value 
 		});
-		//console.log('onChange2: ' + e.target.name +' : '+ e.target.value);
-		//console.log('onchage3: ',item);
 	};
-
 
 	return (
 		<form className="form"> {

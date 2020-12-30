@@ -5,7 +5,6 @@ import AuthReducer from './authReducer';
 import setAuthToken from '../../utils/setAuthToken';
 
 import {
-
     USER_LOADED,
     AUTH_ERROR,
     LOGIN_SUCCESS,
@@ -27,12 +26,11 @@ const AuthState = props => {
 
     // Load User
     const loadUser = async () => {
-        console.log('ENTRO1');
         if(localStorage.token) {
-            console.log('TOKEN: ',localStorage.token);
+            console.log('Entro load user');
             setAuthToken(localStorage.token);
             try {
-                const res = await axios.get('/auth');
+                const res = await axios.get('/api/auth');
     
                 dispatch({ 
                     type: USER_LOADED, 
@@ -41,7 +39,7 @@ const AuthState = props => {
             } catch (err) {
                 dispatch({ type: AUTH_ERROR });
             }
-        }
+        } else { console.log(' NO ENTRO LOAD USER');}
     };
 
     // Login User
@@ -53,7 +51,7 @@ const AuthState = props => {
         };
         
         try {
-            const res = await axios.post('/auth', formData, config);
+            const res = await axios.post('/api/auth', formData, config);
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: res.data

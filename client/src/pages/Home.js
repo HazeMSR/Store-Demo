@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
+import Items from '../components/items/Items';
+import AuthContext from '../context/auth/authContext';
 
 const Home = props => {
+	const authContext = useContext(AuthContext);
+
+	useEffect( () => {
+		authContext.loadUser();
+		// eslint-disable-next-line
+	}, []);
+	console.log('Entro HOME');
 	return (
-		<div>
-			<h4>HELLO</h4>		
-		</div>
+		<Fragment>
+			<Items />		
+		</Fragment>
 	);
 };
 export default Home;
