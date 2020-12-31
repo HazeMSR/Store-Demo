@@ -1,21 +1,21 @@
 import React, { useState, useContext, useEffect } from 'react';
-//import ModalContext from '../../context/modal/modalContext';
 import AuthContext from '../../context/auth/authContext';
+import Notification from './Notification';
 
 
 const Login = props => {
-	//const modalContext = useContext(modalContext);
     const authContext = useContext(AuthContext);
 
-    //const { setmodal } = modalContext;
     const { login, error, clearErrors, isAuthenticated } = authContext;
+	const type = 'is-danger';
+	let content = 'Some';
 
     useEffect( () => {
         if(isAuthenticated) {
             props.history.push('/');
         }
         if(error === 'Invalid Credentials') {
-            //setmodal(error, 'danger');
+            
             console.log('ERROR AUTH: ',error);
             clearErrors();
         }
@@ -27,6 +27,7 @@ const Login = props => {
         password: ''
     });
 
+
     const { user, password } = users;
 
     const onChange = e => setUsers({
@@ -37,7 +38,7 @@ const Login = props => {
     const onSubmit = e =>{
         e.preventDefault();
         if( user === '' || password === '') {
-           // setmodal('Please fill in all fields', 'danger');
+		   	content = 'Please fill in all fields';
             console.log('INPUT SOME USER');
         } else {
             login({
@@ -48,6 +49,7 @@ const Login = props => {
     };
 	return (
 		<form onSubmit={onSubmit}>
+			<Notification type={type} content={content} />
 			<div className="field is-horizontal">
 				<div className="field-label is-large">
 			   		<label className="label">User:</label>
